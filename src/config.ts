@@ -1,10 +1,10 @@
 const config = {
-   guildId: '997523369337561170',
+   guildId: '',
 
-   registerChannelId: '1517582344926662729',
-   verifyLogChannelId: '1517627542771728537',
+   registerChannelId: '9',
+   verifyLogChannelId: '',
 
-   verifyRoleId: '1015530773316648970',
+   verifyRoleId: '',
 
    youtubeAlerts: {
       // format ytChannelID: discordChannelID
