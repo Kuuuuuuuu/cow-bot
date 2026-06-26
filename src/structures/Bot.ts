@@ -1,4 +1,12 @@
-import {Client, ClientOptions, Collection, Routes, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from 'discord.js';
+import {
+   Client,
+   ClientOptions,
+   Collection,
+   Routes,
+   SlashCommandBuilder,
+   SlashCommandOptionsOnlyBuilder,
+   SlashCommandSubcommandsOnlyBuilder,
+} from 'discord.js';
 import {readdirSync} from 'node:fs';
 import {join, parse} from 'node:path';
 
@@ -39,9 +47,9 @@ export default class Bot extends Client {
          await this.deployCommands();
 
          console.log(`Logged in as ${this.user!.tag}`);
-      } catch (err) {
-         console.error('Failed to start bot:', err);
-         throw err;
+      } catch (error) {
+         console.error('Failed to start bot:', error);
+         throw error;
       }
    }
 
@@ -82,8 +90,8 @@ export default class Bot extends Client {
                } else {
                   this.on(eventName, listener);
                }
-            } catch (err) {
-               console.error(`Failed to load event ${file}`, err);
+            } catch (error) {
+               console.error(`Failed to load event ${file}`, error);
             }
          }),
       );
@@ -105,8 +113,8 @@ export default class Bot extends Client {
                }
 
                this.commands.set(command.data.name, command);
-            } catch (err) {
-               console.error(`Failed to load command ${file}`, err);
+            } catch (error) {
+               console.error(`Failed to load command ${file}`, error);
             }
          }),
       );

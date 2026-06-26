@@ -10,8 +10,9 @@ const client = new Bot({
    },
 });
 
-client.start().catch(err => {
-   console.error('Failed to start bot:', err);
+// eslint-disable-next-line unicorn/prefer-top-level-await
+client.start().catch(error => {
+   console.error('Failed to start bot:', error);
    process.exit(1);
 });
 

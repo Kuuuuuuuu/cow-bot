@@ -13,7 +13,7 @@ import {
    TextInputStyle,
 } from 'discord.js';
 
-let verifyLogChannel: TextChannel | null = null;
+let verifyLogChannel: TextChannel;
 
 async function sendVerifyLog(user: Interaction['user'], name: string, age: number) {
    if (!verifyLogChannel) {
@@ -65,8 +65,8 @@ export default {
 
          try {
             await command.execute(interaction);
-         } catch (err) {
-            console.error(err);
+         } catch (error) {
+            console.error(error);
          }
       } else if (interaction.isButton()) {
          switch (interaction.customId) {
@@ -100,6 +100,7 @@ export default {
                );
                break;
             }
+            // no default
          }
       } else if (interaction.isModalSubmit()) {
          switch (interaction.customId) {
@@ -123,8 +124,8 @@ export default {
 
                   await sendVerifyLog(interaction.user, name, age);
                   await member.roles.add(config.verifyRoleId);
-               } catch (err) {
-                  console.error(err);
+               } catch (error) {
+                  console.error(error);
 
                   await interaction.reply({
                      content: 'เกิดข้อผิดพลาดในการยืนยันตัวตนของคุณ โปรดลองอีกครั้ง',
@@ -133,6 +134,7 @@ export default {
                }
                break;
             }
+            // no default
          }
       }
    },

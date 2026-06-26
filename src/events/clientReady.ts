@@ -1,7 +1,7 @@
 import config from '../config';
 import client from '../index';
 import {getLastVideoId, getLatestVideo, setLastVideoId} from '../services/youtube';
-import {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel, Colors, ComponentType, Guild} from 'discord.js';
+import {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel, Colors, Guild} from 'discord.js';
 import cron from 'node-cron';
 
 export default {
@@ -9,7 +9,7 @@ export default {
    enable: true,
 
    async execute() {
-      const guild = await client.guilds.fetch(config.guildId).catch(() => null);
+      const guild = await client.guilds.fetch(config.guildId).catch(() => {});
 
       if (!guild) {
          console.error('Failed to fetch guild.');
@@ -100,8 +100,8 @@ export default {
          });
 
          await setLastVideoId(ytChannelId, videoId);
-      } catch (err) {
-         console.error('YouTube notifier:', err);
+      } catch (error) {
+         console.error('YouTube notifier:', error);
       }
    },
 
