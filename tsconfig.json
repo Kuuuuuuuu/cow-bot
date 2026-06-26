@@ -1,0 +1,16 @@
+{
+   "compilerOptions": {
+      "lib": ["ESNext", "dom"],
+      "target": "ES2021",
+      "module": "commonjs",
+      "sourceMap": false,
+      "resolveJsonModule": true,
+      "importHelpers": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "esModuleInterop": true,
+      "declaration": true
+   },
+   "include": ["**/*.ts", "**/*.js"],
+   "exclude": ["node_modules"]
+}

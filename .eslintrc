@@ -1,0 +1,39 @@
+{
+   "root": true,
+   "parser": "@typescript-eslint/parser",
+   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:unicorn/recommended", "prettier"],
+   "plugins": ["@typescript-eslint", "unicorn", "prettier"],
+   "rules": {
+      "prettier/prettier": "warn",
+      "prefer-template": "error",
+      "default-case": "error",
+      "prefer-const": "error",
+      "prefer-destructuring": "off",
+      "no-return-await": "error",
+      "no-case-declarations": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "unicorn/filename-case": "off",
+      "eslint-plugin-unicorn/no-await-expression-member": "off",
+      "unicorn/no-await-expression-member": "off",
+      "eslint-plugin-unicorn/filename-case": "off",
+      "unicorn/prefer-module": "off",
+      "unicorn/import-style": "off",
+      "unicorn/prevent-abbreviations": "off",
+      "unicorn/no-process-exit": "off"
+   },
+   "parserOptions": {
+      "project": "tsconfig.eslint.json",
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+   },
+   "ignorePatterns": ["node_modules"],
+   "env": {
+      "node": true,
+      "commonjs": true,
+      "es2022": true
+   }
+}

@@ -1,0 +1,30 @@
+{
+   "main": "src/index.ts",
+   "scripts": {
+      "start": "node  --env-file=.env -r sucrase/register src/index.ts",
+      "prettier": "prettier --write .",
+      "lint": "eslint . --ext .ts",
+      "lint:fix": "eslint . --ext .ts --fix"
+   },
+   "engines": {
+      "node": ">=24"
+   },
+   "dependencies": {
+      "@discordjs/rest": "^2.6.1",
+      "discord.js": "^14.26.4",
+      "node-cron": "^4.5.0",
+      "rss-parser": "^3.13.0",
+      "sucrase": "^3.35.1"
+   },
+   "devDependencies": {
+      "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+      "@typescript-eslint/eslint-plugin": "^8.62.0",
+      "@typescript-eslint/parser": "^8.62.0",
+      "eslint": "^10.5.0",
+      "eslint-config-prettier": "^10.1.8",
+      "eslint-plugin-prettier": "^5.5.6",
+      "eslint-plugin-unicorn": "^69.0.0",
+      "prettier": "^3.8.4",
+      "typescript": "^5.9.3"
+   }
+}
