@@ -1,13 +1,17 @@
 const config = {
    guildId: '',
 
-   registerChannelId: '9',
-   verifyLogChannelId: '',
+   channelIds: {
+      register: '',
+      verifyLog: '',
+      welcome: '',
+      cowAI: '',
+   },
 
    verifyRoleId: '',
 
    youtubeAlerts: {
-      // format ytChannelID: discordChannelID
+      'youtube-cid': 'discord-channel-id',
    },
 };
 

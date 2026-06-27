@@ -17,7 +17,7 @@ let verifyLogChannel: TextChannel;
 
 async function sendVerifyLog(user: Interaction['user'], name: string, age: number) {
    if (!verifyLogChannel) {
-      const channel = await client.channels.fetch(config.verifyLogChannelId);
+      const channel = await client.channels.fetch(config.channelIds.verifyLog);
 
       if (channel?.isTextBased()) {
          verifyLogChannel = channel as TextChannel;
