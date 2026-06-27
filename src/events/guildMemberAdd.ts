@@ -29,7 +29,7 @@ export default {
                      [
                         `สมาชิกใหม่ -> ${member}`,
                         `จำนวนสมาชิกปัจจุบัน -> ${member.guild.memberCount}`,
-                        'แนะนำตนเองได้ที่ - [กดตรงนี้](https://discord.com/channels/997523369337561170/1517582344926662729)',
+                        `แนะนำตนเองได้ที่ - <#${config.channelIds.register}>`,
                      ].join('\n'),
                   )
                   .setThumbnail(member.displayAvatarURL({extension: 'png', size: 256}))
