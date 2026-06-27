@@ -1,5 +1,6 @@
 import config from '../config';
-//import {formatRecipes, searchRecipes} from '../services/ai/eartho/recipeSearch';
+import redis from '../redis';
+// import {formatRecipes, searchRecipes} from '../services/ai/eartho/recipeSearch';
 import Cerebras from '@cerebras/cerebras_cloud_sdk';
 import type {ChatCompletionCreateParams} from '@cerebras/cerebras_cloud_sdk/resources.mjs';
 import type {Message} from 'discord.js';
@@ -18,14 +19,33 @@ const cerebras = new Cerebras({
 
 export default {
    enable: true,
-   messageMemories: new Map<string, ChatMessage[]>(),
 
-   getHistory(channelId: string): ChatMessage[] {
-      return this.messageMemories.get(channelId) ?? [];
+   historyKey(channelId: string): string {
+      return `cowai:history:${channelId}`;
    },
 
-   saveHistory(channelId: string, history: ChatMessage[]): void {
-      this.messageMemories.set(channelId, history.slice(-maxMsgHistory));
+   async getHistory(channelId: string): Promise<ChatMessage[]> {
+      const key = this.historyKey(channelId);
+
+      const messages: string[] = await redis.lrange(key, 0, -1);
+
+      return messages.map((msg: string): ChatMessage => JSON.parse(msg));
+   },
+
+   async saveHistory(channelId: string, history: ChatMessage[]): Promise<void> {
+      const key = this.historyKey(channelId);
+
+      const pipeline = redis.multi();
+
+      pipeline.del(key);
+
+      for (const msg of history.slice(-maxMsgHistory)) {
+         pipeline.rpush(key, JSON.stringify(msg));
+      }
+
+      pipeline.expire(key, 60 * 60 * 24); // 24 hours
+
+      await pipeline.exec();
    },
 
    buildMessages(userContent: string, history: ChatMessage[]): ChatCompletionCreateParams['messages'] {
@@ -43,7 +63,7 @@ export default {
       //    });
       // }
 
-      return [...systemMessages, ...history.slice(-maxMsgHistory)];
+      return [...systemMessages, ...history];
    },
 
    async execute(message: Message<true>): Promise<void> {
@@ -54,7 +74,7 @@ export default {
       void message.channel.sendTyping().catch(() => {});
 
       try {
-         const history = this.getHistory(message.channel.id);
+         const history = await this.getHistory(message.channel.id);
 
          history.push({
             role: 'user',
@@ -76,7 +96,7 @@ export default {
          const reply = (choices[0]?.message as {content?: string} | undefined)?.content?.trim() ?? 'I pooped my pants.';
 
          history.push({role: 'assistant', content: reply});
-         this.saveHistory(message.channel.id, history);
+         await this.saveHistory(message.channel.id, history);
 
          await message.reply(reply.slice(0, 2000));
       } catch (error) {
