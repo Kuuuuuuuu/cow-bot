@@ -1,5 +1,5 @@
-import config from '../config';
 import {generateCard} from '../canvas/joinCard';
+import config from '../config';
 import {EmbedBuilder, GuildMember} from 'discord.js';
 
 export default {
@@ -7,6 +7,10 @@ export default {
    once: false,
 
    async execute(member: GuildMember) {
+      if (member.guild.id !== config.guildId) {
+         return;
+      }
+
       const channel = member.guild.channels.cache.get(config.channelIds.welcome);
       if (!channel?.isSendable()) {
          return;
